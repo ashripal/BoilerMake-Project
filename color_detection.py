@@ -10,7 +10,14 @@ def nearest_color_name(center):
         "red": (255,0,0),
         "green": (0,255,0),
         "blue": (0,0,255),
-        "yellow": (255,255,0)
+        "yellow": (255,255,0),
+        "black": (0,0,0),
+        "white": (255,255,255),
+        "grey": (128,128,128),
+        "purple": (128,0,128),
+        "pink": (255,105,180),
+        "orange": (255,140,0),
+        "brown": (165,42,42)
     }
     dist_min = float("inf")
     nearest_color = None
@@ -44,7 +51,7 @@ def color_detection(image_file):
     return color
 
 def main():
-    color = nearest_color_name(255,0,0)
+    color = nearest_color_name((255,0,0))
     print(str(color))
 
 if __name__ == "__main__":
