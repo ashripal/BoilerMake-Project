@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 import matplotlib.image as mp_img
 import cv2
 from sklearn.cluster import KMeans
@@ -28,6 +28,21 @@ def color_detection(image_file):
     #image = mp_img.imread(image_file)
 
     #image = image.reshape((image.shape[1]*image.shape[0], 3))
+
+    row, col, channel = image_file.shape
+
+    if channel == 4:
+        rgb = np.zeros( (row, col, 3), dtype='float32' )
+        r, g, b, a = image_file[:,:,0], image_file[:,:,1], image_file[:,:,2], image_file[:,:,3]
+
+        a = np.asarray( a, dtype='float32' ) / 255.0
+
+        R, G, B = (255,255,255)
+
+        rgb[:,:,0] = r * a + (1.0 - a) * R
+        rgb[:,:,1] = g * a + (1.0 - a) * G
+        rgb[:,:,2] = b * a + (1.0 - a) * B
+        image_file = np.asarray( rgb, dtype='uint8' )
 
     #finds most prominent color
     color_classification = KMeans(n_clusters = 1)
