@@ -9,15 +9,13 @@ def nearest_color_name(center):
         "red": (255,0,0),
         "green": (0,255,0),
         "blue": (0,0,255),
-        "yellow": (0,255,255),
-        "black": (0,0,0),
-        "white": (255,255,255),
-        "pink": (255,51,153)
+        "yellow": (0,255,255)
     }
     dist_min = float("inf")
     color = None
 
     for color, value in colors.items():
+        print("center: {:d}\n", center)
         distance = math.dist(center, value)
         if (distance < dist_min):
             dist_min = distance
@@ -29,14 +27,12 @@ def color_detection(image_file):
     image = cv2.cvtColor(cv2.imread(image_file), cv2.COLOR_BGR2RGB)
     #image_file = image_file[:,:,[2,1,0]]
     #image = mp_img.imread(image_file)
- 
-    #image = image.reshape((image.shape[1]*image.shape[0], 3))
 
-    row, col, channel = image_file.shape
+    row, col, channel = image.shape
 
     if channel == 4:
         rgb = np.zeros( (row, col, 3), dtype='float32' )
-        r, g, b, a = image_file[:,:,0], image_file[:,:,1], image_file[:,:,2], image_file[:,:,3]
+        r, g, b, a = image[:,:,0], image[:,:,1], image[:,:,2], image[:,:,3]
 
         a = np.asarray( a, dtype='float32' ) / 255.0
 
@@ -45,7 +41,9 @@ def color_detection(image_file):
         rgb[:,:,0] = r * a + (1.0 - a) * R
         rgb[:,:,1] = g * a + (1.0 - a) * G
         rgb[:,:,2] = b * a + (1.0 - a) * B
-        image_file = np.asarray( rgb, dtype='uint8' )
+        image = np.asarray( rgb, dtype='uint8' )
+
+    image = image.reshape((image.shape[1]*image.shape[0], 3))
 
     #finds most prominent color
     color_classification = KMeans(n_clusters = 1)
@@ -56,10 +54,10 @@ def color_detection(image_file):
     #print(labels)
 
     centroid = color_classification.cluster_centers_
-    #print(tuple(centroid))
+    print("tuple: {:s}", tuple(centroid.tolist()[0]))
 
     #gets color name from rgb value
-    color = nearest_color_name(tuple(centroid.tolist()))
+    color = nearest_color_name(tuple(centroid.tolist()[0]))
     return color
 
 def main():
@@ -68,7 +66,8 @@ def main():
     color_detection("apple_test.jpeg")
     color_detection("orange_test.jpeg")
     color_detection("green_test.jpeg")
-    color_detection('blue_test.jpeg')
+    color_detection("blue_test_2.jpg")
+    color_detection("yellow_test.jpg")
 
 if __name__ == "__main__":
     main()
