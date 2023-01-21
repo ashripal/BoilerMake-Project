@@ -1,9 +1,5 @@
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
 import cv2
 from sklearn.cluster import KMeans
-from scipy.spatial import KDTree
 
 def nearest_color_name(center):
     colors = {
@@ -20,9 +16,8 @@ def nearest_color_name(center):
         "brown": (165,42,42)
     }
     dist_min = float("inf")
-    nearest_color = None
     for color, value in colors.items():
-        distance = sum([(i - j) ** 2 for i,j in zip(center, value)])
+        distance = sum([(c - v) ** 2 for c,v in zip(center, value)])
         if distance < dist_min:
             dist_min = distance
             nearest_color = color
@@ -30,24 +25,23 @@ def nearest_color_name(center):
     return nearest_color
 
 def color_detection(image_file):
-    image = cv2.imread(image_file)
-    #plt.imshow(image)
-
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    image = cv2.cvtColor(cv2.imread(image_file), cv2.COLOR_BGR2RGB)
 
     image = image.reshape((image.shape[1]*image.shape[0], 3))
 
+    #finds most prominent color
     color_classification = KMeans(n_clusters = 1)
-    s = color_classification.fit(image)
+    color_classification.fit(image)
     
     labels = color_classification.labels_
     labels = list(labels)
     print(labels)
 
     centroid = color_classification.cluster_centers_
-    print(centroid)
+    print(tuple(centroid))
 
-    color = nearest_color_name(centroid)
+    #gets color name from rgb value
+    color = nearest_color_name(tuple(centroid))
     return color
 
 def main():
