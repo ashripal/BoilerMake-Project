@@ -45,7 +45,7 @@ def color_detection(image_file):
     return color
 
 def main():
-    color = nearest_color_name((255,0,0))
+    color = nearest_color_name(((255,255,0)))
     print(str(color))
 
 if __name__ == "__main__":
