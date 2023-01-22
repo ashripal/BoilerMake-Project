@@ -37,15 +37,22 @@ def saveAndExit(event = 0):
     #prevImg.save('img_input.jpg')
     #result ='#result here '
     result = yoloyolov5(filepath)
-    print(result)
+    red_res = reduce_dict(result)
     
     #result = yolo_and_image_classification()
-    label5 = tk.Label(text=str(result),fg='black',font='times 16 bold ')
+    label5 = tk.Label(text=str(red_res),fg='black',font='times 16 bold ')
     label5.pack(anchor='w')
 
     #mainWindow.quit()
  
- 
+def reduce_dict(dictionary):
+    reduced = dictionary.copy()
+    for key in dictionary:
+        if "person" in key :
+            
+            reduced.pop(key, 0)
+    return reduced
+
 def resume(event = 0):
     global button1, button2, button, lmain, cancel
  
