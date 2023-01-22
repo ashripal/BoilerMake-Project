@@ -2,6 +2,7 @@ import torch
 from color_detection import color_detect, nearest_color_name
 from PIL import Image
 import numpy as np
+import os
 # Model
 def yoloyolov5(filename):
     '''
@@ -23,12 +24,24 @@ def yoloyolov5(filename):
 
     model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
     img = filename
+    #print(filename)
     results = model(img)
     crops = results.crop(save = True)
-    print(type(crops))
-    array = np.array()
-    im = Image.fromarray(crops)
-    im.save("croppped.png")
+    #print(crops)
+    d = {}
+    for i in range(len(crops)):
+        
+        img = Image.fromarray(crops[i]['im'])
+        img.save(f"file{i}.jpeg")
+        #d[i].value = color_detect(f"file{i}.jpeg")
+        d[crops[i]['label']]  = color_detect(f"file{i}.jpeg")
+
+    #print(crops['label'])
+    #print('File name: ', os.path.basename(__file__))
+    #print('Directory name: ', os.path.dirname(__file__))
+   
+    return d
+
+   
     
-    
-    color_detect("cropped.png")
+    #color_detect("runs\detect\exp\crops\imageCap.jpg")
