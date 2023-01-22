@@ -33,6 +33,7 @@ def saveAndExit(event = 0):
     #result = yolo_and_image_classification()
     label5 = tk.Label(text=result,fg='black',font='times 16 bold ')
     label5.pack(anchor='w')
+
     #mainWindow.quit()
  
  
@@ -49,6 +50,7 @@ def resume(event = 0):
     lmain.after(10, show_frame)
  
 def changeCam(event=0, nextCam=-1):
+
     global camIndex, cap, fileName
  
     if nextCam == -1:
@@ -108,7 +110,7 @@ lmain = tk.Label(mainWindow, compound=tk.CENTER, anchor=tk.CENTER, relief=tk.RAI
 button = tk.Button(mainWindow, text="Capture", command=prompt_ok)
 #button_changeCam = tk.Button(mainWindow, text="Switch Camera", command=changeCam)
  
-lmain.pack()
+lmain.pack() #packing
 button.place(bordermode=tk.INSIDE, relx=0.5, rely=0.9, anchor=tk.CENTER, width=300, height=50)
 button.focus()
 #button_changeCam.place(bordermode=tk.INSIDE, relx=0.85, rely=0.1, anchor=tk.CENTER, width=150, height=50)
