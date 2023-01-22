@@ -7,18 +7,19 @@ import math
 def nearest_color_name(center):
     colors = {
         "red": (255,0,0),
-        "green": (0,255,0),
-        "blue": (0,0,255),
-        "yellow": (0,255,255),
-        "black": (0,0,0),
-        "white": (255,255,255),
-        "pink" : (255,51,153)
+        "green": (0,153,0),
+        "blue": (51,153,255),
+        "yellow": (255,255,150),
+        "brown": (153, 76, 0), 
+        "black": (0, 0, 0), 
+        "white": (255, 255, 255),
+        "purple": (153, 51, 255)
     }
     dist_min = float("inf")
     color = None
 
     for color, value in colors.items():
-        print("center: {:d}\n", center)
+        #print("center: {:d}\n", center)
         distance = math.dist(center, value)
         if (distance < dist_min):
             dist_min = distance
@@ -57,20 +58,19 @@ def color_detection(image_file):
     #print(labels)
 
     centroid = color_classification.cluster_centers_
-    print("tuple: {:s}", tuple(centroid.tolist()[0]))
+    #print("tuple: {:s}", tuple(centroid.tolist()[0]))
 
     #gets color name from rgb value
     color = nearest_color_name(tuple(centroid.tolist()[0]))
     return color
 
 def main():
-    color = nearest_color_name(((0,255,255)))
-    #print(str(color))
     color_detection("apple_test.jpeg")
-    color_detection("orange_test.jpeg")
     color_detection("green_test.jpeg")
-    color_detection("blue_test_2.jpg")
+    color_detection("blue_test.jpg")
     color_detection("yellow_test.jpg")
+    color_detection("20230121_145529.jpg")
+
 
 if __name__ == "__main__":
     main()
