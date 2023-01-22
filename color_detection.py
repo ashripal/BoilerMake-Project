@@ -6,11 +6,11 @@ import math
 
 def nearest_color_name(center):
     colors = {
-        "red": (255,0,0),
+        #"red": (180,0,0),
         "green": (0,153,0),
         "blue": (51,153,255),
-        "yellow": (255,255,150),
-        "brown": (153, 76, 0), 
+        "yellow": (200,200,50),
+        "red": (153, 76, 0), 
         "black": (0, 0, 0), 
         "white": (255, 255, 255),
         "purple": (153, 51, 255)
@@ -65,11 +65,11 @@ def color_detect(image_file):
     return color
 
 def main():
-    color_detection("apple_test.jpeg")
-    color_detection("green_test.jpeg")
-    color_detection("blue_test.jpg")
-    color_detection("yellow_test.jpg")
-    color_detection("20230121_145529.jpg")
+    color_detect("apple_test.jpeg")
+    color_detect("green_test.jpeg")
+    color_detect("blue_test.jpg")
+    color_detect("yellow_test.jpg")
+    color_detect("20230121_145529.jpg")
 
 
 if __name__ == "__main__":

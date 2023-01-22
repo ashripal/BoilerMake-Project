@@ -6,6 +6,7 @@ import sys
 from PIL import Image, ImageTk
 from color_detection import color_detect, nearest_color_name
 import matplotlib
+from yoloyolov5 import yoloyolov5
  
 fileName = os.environ['ALLUSERSPROFILE'] + "\WebcamCap.txt"
 cancel = False
@@ -35,10 +36,10 @@ def saveAndExit(event = 0):
     #cv2.imwrite('img_input.jpg', png_img, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
     #prevImg.save('img_input.jpg')
     #result ='#result here '
-    result = color_detect(filepath)
+    result = yoloyolov5(filepath)
 
     #result = yolo_and_image_classification()
-    label5 = tk.Label(text=result,fg='black',font='times 16 bold ')
+    label5 = tk.Label(text=result,fg='black',font='times 6 bold ')
     label5.pack(anchor='w')
 
     #mainWindow.quit()
