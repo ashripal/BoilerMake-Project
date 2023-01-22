@@ -27,7 +27,7 @@ def nearest_color_name(center):
     print(nearest_color)
     return nearest_color
 
-def color_detection(image_file):
+def color_detect(image_file):
     image = cv2.cvtColor(cv2.imread(image_file), cv2.COLOR_BGR2RGB)
     #image_file = image_file[:,:,[2,1,0]]
     #image = mp_img.imread(image_file)
